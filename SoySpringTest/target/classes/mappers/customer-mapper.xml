@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="CustomerMapper">
+  	<resultMap type="Customer" id="customerResultMap">
+  		<id property="customerNo"		  column="CUSTOMER_NO"/>
+  		<result property="customerId"	  column="CUSTOMER_ID"/>
+  		<result property="customerPw" 	  column="CUSTOMER_PW"/>
+  		<result property="customerName"  column="CUSTOMER_NAME"/>
+  		<result property="customerEmail" column="CUSTOMER_EMAIL"/>
+  	</resultMap>
+  	
+  	<insert id="insertCustomer">
+  		INSERT INTO CUSTOMER_TBL
+  		VALUES(SEQ_CUSTOMER_NO.NEXTVAL, #{customerId}, #{customerPw}, #{customerName}, #{customerEmail})
+  	</insert>
+  	<update id="updateCustomer">
+  		UPDATE CUSTOMER_TBL 
+  		SET
+  		CUSTOMER_PW = #{customerPw}, CUSTOMER_EMAIL = #{customerEmail}
+  		WHERE CUSTOMER_NO = #{customerNo}
+  	</update>
+  	<delete id="deleteCustomer">
+  		DELETE FROM CUSTOMER_TBL 
+  		WHERE CUSTOMER_ID = #{customerId }
+  	</delete>
+  	<select id="selectCustomerList" resultMap = "customerResultMap">
+  		SELECT * FROM CUSTOMER_TBL 
+  		ORDER BY CUSTOMER_NO DESC
+  	</select>
+  	<select id="selectOneByNo" resultMap="customerResultMap">
+  		SELECT * FROM CUSTOMER_TBL
+  		WHERE CUSTOMER_NO = #{customerNo }
+  	</select>
+  
+  </mapper>
+  
